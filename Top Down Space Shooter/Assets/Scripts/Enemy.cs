@@ -7,10 +7,8 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] float movementSpeed;
     [SerializeField] TextMeshProUGUI healthText;
-/*    [SerializeField] public GameObject enemyPrefab;
 
-    private float x = 0;
-    private float spawnCount = 0;*/
+    public EnemySpawnerHandler Handler { get; set; }
 
     float curHealth = 100;
     float maxHealth = 100;
@@ -25,14 +23,9 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+     
         this.transform.Translate(Vector3.down * movementSpeed * Time.deltaTime);
         HealthUpdate();
-        
-       /* if(spawnCount == 0)
-        {
-            spawn();
-            spawnCount++;
-        }*/
     }
 
     void HealthUpdate()
@@ -45,9 +38,9 @@ public class Enemy : MonoBehaviour
         curHealth -= 10;
         if(curHealth <= 0)
         {
-            Destroy(this.gameObject);
-
-            /*spawnCount --;*/
+            
+            Handler.EnemyDied(this.gameObject);
+            
         }
     }
 
@@ -67,12 +60,4 @@ public class Enemy : MonoBehaviour
             return;
         }
     }
-
-/*    void spawn()
-    {
-        x = Random.Range(-5, 5);
-
-        GameObject Enemy = Instantiate(enemyPrefab) as GameObject;
-        Enemy.transform.position = new Vector3(x, 10, 0);
-    }*/
 }
