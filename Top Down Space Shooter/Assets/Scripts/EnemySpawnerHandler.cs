@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemySpawnerHandler : MonoBehaviour
 {
     [SerializeField] public GameObject enemyPrefab;
+    [SerializeField] AudioSource DestroySFX;
 
     private float x = 0;
     private float spawnCount = 0;
@@ -32,6 +33,7 @@ public class EnemySpawnerHandler : MonoBehaviour
     public void EnemyDied(GameObject enemyObj)
     {
         Destroy(enemyObj);
+        DestroySFX.Play();
         spawnCount--;
     }
 }

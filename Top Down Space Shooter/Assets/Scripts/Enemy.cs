@@ -23,7 +23,6 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-     
         this.transform.Translate(Vector3.down * movementSpeed * Time.deltaTime);
         HealthUpdate();
     }
@@ -38,9 +37,7 @@ public class Enemy : MonoBehaviour
         curHealth -= 10;
         if(curHealth <= 0)
         {
-            
             Handler.EnemyDied(this.gameObject);
-            
         }
     }
 
@@ -58,6 +55,18 @@ public class Enemy : MonoBehaviour
         {
             Debug.Log("Try Again");
             return;
+        }
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision == null)
+        {
+            Debug.Log("No RB detected");
+        }
+        else
+        {
+            curHealth -= 100;
+            Handler.EnemyDied(this.gameObject);
         }
     }
 }

@@ -10,12 +10,21 @@ public class playerMovement : MonoBehaviour
     [SerializeField] GameObject bullet3;
     [SerializeField] GameObject bullet4;
 
+    [SerializeField] AudioSource pewpew1;
+    [SerializeField] AudioSource pewpew2;
+    [SerializeField] AudioSource pewpew3;
+    [SerializeField] AudioSource pewpew4;
+    [SerializeField] AudioSource HurtSFX;
+
     private GameObject currentBullet;
+    private AudioSource currentPewpew;
+    private int lives = 5;
 
     // Start is called before the first frame update
     void Start()
     {
         currentBullet = bullet1;
+        currentPewpew = pewpew1;
     }
 
     // Update is called once per frame
@@ -53,27 +62,39 @@ public class playerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            currentBullet = bullet1; 
+            currentBullet = bullet1;
+            currentPewpew = pewpew1;
+            
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             currentBullet = bullet2; 
+            currentPewpew = pewpew2;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             currentBullet = bullet3; 
+            currentPewpew = pewpew3;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             currentBullet = bullet4; 
+            currentPewpew = pewpew4;
         }
 
         if (currentBullet != null && Input.GetKeyDown(KeyCode.Space))
         {
             GameObject bulletObj = Instantiate(currentBullet) as GameObject;
             bulletObj.transform.position = this.transform.position;
+            currentPewpew.Play();
 
             Destroy(bulletObj, 3);
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        HurtSFX.Play();
+        lives--;
     }
 }
