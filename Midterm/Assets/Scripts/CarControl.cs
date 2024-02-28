@@ -22,9 +22,13 @@ public class CarControl : MonoBehaviour
     [SerializeField] Transform RLWT;
     [SerializeField] Transform RRWT;
 
+    [SerializeField] string Level1;
+
     [SerializeField] float MaxSteerAngle; 
     [SerializeField] float Gas; 
     [SerializeField] float Brake;
+
+    [SerializeField] Collision border;
 
     [SerializeField] private List<Scene> _SceneList;
 
@@ -98,8 +102,8 @@ public class CarControl : MonoBehaviour
         trans.position = pos;
     }
 
-    public void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision border)
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        Debug.Log("restart");
     }
 }
