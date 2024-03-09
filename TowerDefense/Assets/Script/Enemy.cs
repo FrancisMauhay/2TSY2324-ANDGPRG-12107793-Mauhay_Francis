@@ -11,8 +11,6 @@ public enum MonsterType
 
 public class Enemy : MonoBehaviour
 {
-    SpawnerController spawner;
-    GameManager GM;
 
     [SerializeField] NavMeshAgent agent;
 
@@ -36,7 +34,7 @@ public class Enemy : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        GM.rounds++;
-        Destroy(this);
+        SpawnerController.instance.RemoveEnemy(this.gameObject);
+        Destroy(this.gameObject);     
     }
 }

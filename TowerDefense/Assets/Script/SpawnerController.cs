@@ -10,7 +10,8 @@ public class SpawnerController : MonoBehaviour
 
 	[SerializeField] List<GameObject> enemyList;
 
-	private int EnemyCount;
+	public int [] EnemyRoundCount;
+	private int CountCheck = 0;
 
 	private void Awake()
 	{
@@ -19,7 +20,7 @@ public class SpawnerController : MonoBehaviour
 
 	private void Start()
 	{
-		for (int i = 0; i < 5; i++) 
+		for (int i = 0; i < EnemyRoundCount[CountCheck]; i++) 
 		{ 
 			SpawnEnemy(0);
 		}
@@ -27,16 +28,18 @@ public class SpawnerController : MonoBehaviour
 
 	public void WaveIncrease()
 	{
-		/*if(EnemyCount <= 0)
+		CountCheck++;
+		GameManager.instance.rounds++;
+		for (int i = 0; i < EnemyRoundCount[CountCheck]; i++)
         {
-			for(int i = 0; i < )
-        }*/
+			SpawnEnemy(0);
+        }
+
 	}
 
 	public void SpawnEnemy(int enemyIdx)
 	{
-		GameObject enemyObj = (GameObject)Instantiate(enemyPrefab[enemyIdx]);
-		enemyObj.transform.position = spawnPoint.position;
+		GameObject enemyObj = (GameObject)Instantiate(enemyPrefab[enemyIdx], spawnPoint.position, Quaternion.identity);
 		enemyObj.GetComponent<Enemy>().SetTarget(GameManager.instance.Crystal);
 		enemyList.Add(enemyObj);
 
@@ -44,8 +47,17 @@ public class SpawnerController : MonoBehaviour
 		Debug.Log(enemyList.Count);
 	}
 
-	private void RemoveEnemy(GameObject obj)
+	public void RemoveEnemy(GameObject obj) 
 	{
 		enemyList.Remove(obj);
+		ListCheck();
 	}
+
+	private void ListCheck ()
+    {
+		if(enemyList.Count <= 0)
+        {
+			WaveIncrease();
+        }
+    }
 }
