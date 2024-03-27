@@ -17,10 +17,16 @@ public class Tower : MonoBehaviour
     [SerializeField] Material towerMat;
     [SerializeField] public GameObject projectilePrefab;
     [SerializeField] public Transform firePos;
+    [SerializeField] public Collider towCollider;
 
     private void Awake()
     {
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
+    }
+
+    public void Selected()
+    {
+        towerMat.color = Color.yellow;
     }
 
     public void Buildable()

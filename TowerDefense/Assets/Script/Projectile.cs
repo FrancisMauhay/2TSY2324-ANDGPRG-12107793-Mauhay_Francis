@@ -3,8 +3,8 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public Transform target;
-    [SerializeField] int minDamage;
-    [SerializeField] int maxDamage;
+    [SerializeField] public int minDamage;
+    [SerializeField] public int maxDamage;
     [SerializeField] float speed;
     [SerializeField] bool Burning;
     [SerializeField] bool Chilled;

@@ -5,15 +5,19 @@ using UnityEngine.EventSystems;
 
 public class BuildController : MonoBehaviour
 {
+    public static BuildController instance;
     [SerializeField] float buildableOffsetY = 2;
     Ray ray;
     [SerializeField] RaycastHit hit;
-    [SerializeField] RaycastHit[] allObject;
 
     [SerializeField] GameObject[] Towers;
     [SerializeField] GameObject draggableTower;
     [SerializeField] Tower tempTwr;
 
+    private void Awake()
+    {
+        instance = this;
+    }
     public void SpawnCrossbow()
     {
         if (GameManager.instance.gold < 100)
@@ -99,6 +103,7 @@ public class BuildController : MonoBehaviour
                     if(Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
                     {
                         tempTwr.Build();
+                        TowerManager.instance.TowerList.Add(tempTwr);
                         draggableTower = null;  
                     }
                 }
