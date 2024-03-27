@@ -13,17 +13,23 @@ public class SpawnerController : MonoBehaviour
 
 	public int [] EnemyRoundCount;
 	private int CountCheck = 0;
+	public int randomIndex;
 
 	private void Awake()
 	{
 		instance = this;
 	}
 
-	private void Start()
+    private void Update()
+    {
+		randomIndex = Random.Range(0, 1);
+    }
+
+    private void Start()
 	{
 		for (int i = 0; i < EnemyRoundCount[CountCheck]; i++) 
 		{ 
-			SpawnEnemy(0);
+			SpawnEnemy(randomIndex);
 		}
 	}
 
@@ -33,13 +39,14 @@ public class SpawnerController : MonoBehaviour
 		GameManager.instance.rounds++;
 		for (int i = 0; i < EnemyRoundCount[CountCheck]; i++)
         {
-			SpawnEnemy(0);
+			SpawnEnemy(randomIndex);
         }
 
 	}
 
 	public void SpawnEnemy(int enemyIdx)
 	{
+		
 		GameObject enemyObj = (GameObject)Instantiate(enemyPrefab[enemyIdx], spawnPoint.position, Quaternion.identity);
 		enemyObj.GetComponent<Enemy>().SetTarget(GameManager.instance.Crystal);
 		enemyList.Add(enemyObj);
