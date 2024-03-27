@@ -8,10 +8,14 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     [SerializeField] TextMeshProUGUI Wave;
+    [SerializeField] TextMeshProUGUI Gold;
+    [SerializeField] TextMeshProUGUI Life;
     [SerializeField] Transform crystal;
     public Transform Crystal { get { return crystal; } }
 
-    public int rounds = 1;
+    public float rounds = 1;
+    public float gold = 500;
+    public float life = 150;
 
 	private void Awake()
 	{
@@ -21,7 +25,20 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(rounds);
         Wave.text = "Wave " + rounds;
+        Gold.text = gold.ToString();
+        Life.text = "Life: " + life + " /150";
+    }
+
+    public void ApplyDamageToCrystal(float damageAmount)
+    {
+        if (life <= 0)
+        {
+
+        }
+        else
+        {
+            life -= damageAmount;
+        }
     }
 }

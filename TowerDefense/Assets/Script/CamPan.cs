@@ -4,24 +4,25 @@ using UnityEngine;
 
 public class CamPan : MonoBehaviour
 {
-    // Update is called once per frame
+    [SerializeField] float CamSpeed;
+
     void Update()
     {
         if(Input.GetKey(KeyCode.A))
         {
-            this.transform.Translate(Vector3.left);
+            this.transform.Translate(Vector3.left * CamSpeed);
         }
         else if(Input.GetKey(KeyCode.D))
         {
-            this.transform.Translate(Vector3.right);
+            this.transform.Translate(Vector3.right * CamSpeed);
         }
         else if(Input.GetKey(KeyCode.W))
         {
-            this.transform.Translate(Vector3.forward);
+            this.transform.Translate(Vector3.forward * CamSpeed);
         }
         else if(Input.GetKey(KeyCode.S))
         {
-            this.transform.Translate(Vector3.back);
+            this.transform.Translate(Vector3.back * CamSpeed);
         }
     }
 }

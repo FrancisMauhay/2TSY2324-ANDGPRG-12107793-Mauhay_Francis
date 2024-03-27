@@ -9,6 +9,7 @@ public class SpawnerController : MonoBehaviour
 	[SerializeField] GameObject[] enemyPrefab;
 
 	[SerializeField] List<GameObject> enemyList;
+	[SerializeField] float damage;
 
 	public int [] EnemyRoundCount;
 	private int CountCheck = 0;
@@ -42,7 +43,6 @@ public class SpawnerController : MonoBehaviour
 		GameObject enemyObj = (GameObject)Instantiate(enemyPrefab[enemyIdx], spawnPoint.position, Quaternion.identity);
 		enemyObj.GetComponent<Enemy>().SetTarget(GameManager.instance.Crystal);
 		enemyList.Add(enemyObj);
-
 
 		Debug.Log(enemyList.Count);
 	}
